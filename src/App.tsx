@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import SignIn from "./pages/SignIn";
+import Navbar from "./components/NewNavbar";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useTypedSelector } from "./hooks/useTypedSelector";
+import { useEffect } from "react";
+import SignUp from "./pages/SignUp";
+import Main from "./pages/Main";
+import MyProfile from "./pages/MyProfile";
+import "./index.css";
 
 function App() {
+  const { isAuth } = useTypedSelector(({ auth }) => auth);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    !isAuth ? navigate("/signup") : navigate("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/profile" element={<MyProfile />} />
+      </Routes>
     </div>
   );
 }
