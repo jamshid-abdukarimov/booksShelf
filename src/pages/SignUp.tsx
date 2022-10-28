@@ -14,7 +14,7 @@ import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUp(): JSX.Element {
   const { SignUp } = useActions();
   const { isAuth, loading } = useTypedSelector(({ auth }) => auth);
   const navigate = useNavigate();

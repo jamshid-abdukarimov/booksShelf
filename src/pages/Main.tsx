@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Grid, Typography } from "@mui/material";
 
@@ -7,7 +7,7 @@ import Modal from "../components/Modal";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
-const Main = () => {
+const Main: FC = () => {
   const [open, setOpen] = React.useState(false);
   const { isAuth, user } = useTypedSelector(({ auth }) => auth);
   const { books } = useTypedSelector(({ book }) => book);

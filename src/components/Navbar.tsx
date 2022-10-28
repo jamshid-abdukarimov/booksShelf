@@ -1,13 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { NavLink } from "react-router-dom";
+
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import SearchComponent from "./SearchComponent";
 
-export default function Navbar() {
+const Navbar: FC = () => {
   const { isAuth } = useTypedSelector(({ auth }) => auth);
   const { Logout } = useActions();
 
@@ -63,4 +64,6 @@ export default function Navbar() {
       </AppBar>
     </Box>
   );
-}
+};
+
+export default Navbar;

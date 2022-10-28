@@ -9,12 +9,15 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
+
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { BookActionTypes, IBookArray } from "../types/book";
 import Steps from "./Steps";
+import { FC } from "react";
 
-const BookItem = ({ book }: any) => {
+const BookItem: FC<any> = ({ book }) => {
+  console.log(book);
   const { deleteBook } = useActions();
   const { user } = useTypedSelector(({ auth }) => auth);
   const { books } = useTypedSelector(({ book }) => book);

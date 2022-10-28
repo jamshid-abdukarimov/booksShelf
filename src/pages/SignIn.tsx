@@ -14,7 +14,7 @@ import { useActions } from "../hooks/useActions";
 import { useNavigate } from "react-router-dom";
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(): JSX.Element {
   const { loading, isAuth } = useTypedSelector(({ auth }) => auth);
   const { SignIn } = useActions();
   const navigate = useNavigate();

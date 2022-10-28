@@ -2,13 +2,9 @@ import React, { FC } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-
-type SearchComponentProps = {
-  search: string;
-  setSearch: Function;
-};
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,6 +44,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+type SearchComponentProps = {
+  search: string;
+  setSearch: Function;
+};
 
 const SearchComponent: FC<SearchComponentProps> = ({ search, setSearch }) => {
   const { getSearchedBooks, getAllBooks } = useActions();

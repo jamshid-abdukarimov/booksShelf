@@ -9,7 +9,7 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const theme = createTheme();
 
-export default function MyProfile() {
+export default function MyProfile(): JSX.Element {
   const { user } = useTypedSelector(({ auth }) => auth);
   return (
     <ThemeProvider theme={theme}>

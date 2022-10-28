@@ -1,20 +1,18 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
+import React, { FC } from "react";
+import { Box, Stepper, Step, StepLabel } from "@mui/material";
+
 import { BookActionTypes } from "../types/book";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
 import { useActions } from "../hooks/useActions";
 
-const steps = ["New", "Reading", "Finished"];
-
-export default function Steps({ item }: any) {
+const Steps: FC<any> = ({ item }) => {
   const { user } = useTypedSelector(({ auth }) => auth);
   const { books } = useTypedSelector(({ book }) => book);
   const dispatch = useDispatch();
   const { changeBookStatus } = useActions();
+
+  const steps = ["New", "Reading", "Finished"];
 
   const handlePatch = async (status: number) => {
     if (user) {
@@ -59,4 +57,6 @@ export default function Steps({ item }: any) {
       </Stepper>
     </Box>
   );
-}
+};
+
+export default Steps;
