@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Input, Typography, Modal } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import generatorMd5 from "../utils/hooks/md5";
+import generatorMd5 from "../utils/md5";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { BASE_URL } from "../api/constants";

@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import generatorMd5 from "../utils/hooks/md5";
+import generatorMd5 from "../utils/md5";
 import { BASE_URL } from "../api/constants";
 
 type SearchComponentProps = {

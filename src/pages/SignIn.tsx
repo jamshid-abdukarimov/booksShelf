@@ -9,7 +9,7 @@ import Container from "@mui/material/Container/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormEvent, useEffect } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import generatorMd5 from "../utils/hooks/md5";
+import generatorMd5 from "../utils/md5";
 import { useActions } from "../hooks/useActions";
 import { useNavigate } from "react-router-dom";
 const theme = createTheme();

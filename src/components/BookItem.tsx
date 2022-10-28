@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { Box, Button, Grid } from "@mui/material";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import { useActions } from "../hooks/useActions";
-import generatorMd5 from "../utils/hooks/md5";
+import generatorMd5 from "../utils/md5";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { BASE_URL } from "../api/constants";
 import { useDispatch } from "react-redux";
@@ -27,7 +27,14 @@ const BookItem = ({ book }: any) => {
         secret: user.secret,
       });
       if (book.book.id) {
-        deleteBook({ Key: user.key, Sign: sign, id: book.book.id });
+        // deleteBook({ Key: user.key, Sign: sign, id: book.book.id });
+        deleteBook({
+          method: "DELETE",
+          endpoint: `/books/${book.book.id}`,
+          body: "",
+          secret: user.secret,
+          key: user.key,
+        });
         dispatch({
           type: BookActionTypes.GET_BOOKS,
           payload: books.filter(

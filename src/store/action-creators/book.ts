@@ -1,7 +1,10 @@
 import { BookAction, BookActionTypes, IBook } from "../../types/book";
 import { Dispatch } from "redux";
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import { BASE_URL } from "../../api/constants";
+import generatorMd5 from "../../utils/md5";
+import { IUser } from "../../types/auth";
+import axiosInstance, { AxiosProps } from "../../api/axios";
 
 interface getAllBooksProps {
   Key: string;
@@ -92,20 +95,19 @@ export const getSearchedBooks = ({
   };
 };
 
-export const deleteBook = ({ Key, Sign, id }: deleteBookProps) => {
+export const deleteBook = ({
+  method,
+  endpoint,
+  body,
+  secret,
+  key,
+}: AxiosProps) => {
   return async (dispatch: Dispatch<BookAction>) => {
     try {
       dispatch({ type: BookActionTypes.SET_LOADING, payload: true });
-      await axios
-        .delete(`${BASE_URL}/books/${id}`, {
-          headers: {
-            Key,
-            Sign,
-          },
-        })
-        .finally(() =>
-          dispatch({ type: BookActionTypes.SET_LOADING, payload: false })
-        );
+      axiosInstance({ method, endpoint, body, secret, key }).finally(() =>
+        dispatch({ type: BookActionTypes.SET_LOADING, payload: false })
+      );
     } catch (e: any) {
       window.alert(e.response.data.message);
       console.clear();
