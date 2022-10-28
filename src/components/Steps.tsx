@@ -88,10 +88,7 @@ export default function Steps({ item }: any) {
 
   return (
     <Box paddingX={"20px"} sx={{ width: "95%" }}>
-      <Stepper
-        style={{ display: "flex", marginBottom: 20 }}
-        activeStep={item.status}
-      >
+      <Stepper className="steps" activeStep={item.status}>
         {steps.map((label, status) => {
           // const stepProps: { completed?: boolean } = {};
           const labelProps: {
@@ -107,15 +104,12 @@ export default function Steps({ item }: any) {
           // }
           return (
             <Step
+              className="step"
               onClick={() => handlePatch(status)}
-              style={{ alignSelf: "flex-start", cursor: "pointer" }}
               key={label}
               // {...stepProps}
             >
-              <StepLabel
-                style={{ display: "flex", flexDirection: "column" }}
-                {...labelProps}
-              >
+              <StepLabel className="step_item" {...labelProps}>
                 {label}
               </StepLabel>
             </Step>

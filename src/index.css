@@ -1,12 +1,19 @@
 body {
-  margin: 0;
+  /* margin: 0;
   color: rgba(0, 0, 0, 0.87);
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0.00938em;
-  background-color: #fff;
+  background-color: #fff; */
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  list-style: none !important;
 }
 
 .home_modal input::-webkit-inner-spin-button,
@@ -17,4 +24,66 @@ body {
 
 .home_modal input {
   -moz-appearance: textfield;
+}
+.logo {
+  color: white;
+}
+
+.book_item {
+  min-height: max-content;
+  position: relative;
+}
+
+.book_item-delete_btn {
+  position: absolute !important;
+  top: 20px;
+  right: 5px;
+  color: red !important;
+}
+.book_item-card {
+  height: 100%;
+}
+
+.book_item-card_title {
+  line-height: 1.2 !important;
+  margin-bottom: 20px !important;
+}
+
+.navigation_links a {
+  color: white;
+}
+
+.authorization_links {
+  display: flex;
+  gap: 20px;
+}
+
+.steps {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.step {
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.step_item {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.modal_content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: #fff;
+  border: 2px solid #ccc;
+  box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%),
+    0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
+  padding: 25px;
+  border-radius: 8px;
 }

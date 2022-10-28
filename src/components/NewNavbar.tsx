@@ -222,7 +222,7 @@ export default function Navbar() {
             component="div"
             // sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <NavLink style={{ color: "#fff", textDecoration: "none" }} to="/">
+            <NavLink className="logo" to="/">
               Lavina Tech
             </NavLink>
           </Typography>
@@ -242,28 +242,28 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
           {isAuth ? (
             <Box
-            // sx={{ display: { xs: "none", md: "flex" } }}
+              className="navigation_links"
+              // sx={{ display: { xs: "none", md: "flex" } }}
             >
               <IconButton size="large">
-                <NavLink style={{ color: "white" }} to="/profile">
+                <NavLink to="/profile">
                   <AccountCircle />
                 </NavLink>
               </IconButton>
               <IconButton size="large">
-                <NavLink style={{ color: "white" }} to="/profile">
+                <NavLink to="/profile">
                   <LogoutIcon onClick={logout} />
                 </NavLink>
               </IconButton>
             </Box>
           ) : (
-            <div style={{ display: "flex", gap: 10 }}>
-              <NavLink to="/signup" style={{ textDecoration: "none" }}>
+            <div className="authorization_links">
+              <NavLink to="/signup">
                 <Typography variant="subtitle1" color="white">
                   Sign Up
                 </Typography>
               </NavLink>
-
-              <NavLink to="/signin" style={{ textDecoration: "none" }}>
+              <NavLink to="/signin">
                 <Typography variant="subtitle1" color="white">
                   Sign In
                 </Typography>

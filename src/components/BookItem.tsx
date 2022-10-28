@@ -40,21 +40,13 @@ const BookItem = ({ book }: any) => {
     }
   };
   return (
-    <Grid
-      item
-      sm={12}
-      md={6}
-      style={{ minHeight: "max-content", position: "relative" }}
-    >
+    <Grid className="book_item " item sm={12} md={6}>
       {book.book.id && (
-        <Button
-          onClick={deleteBookHandler}
-          style={{ position: "absolute", top: 20, right: 5, color: "red" }}
-        >
+        <Button className="book_item-delete_btn" onClick={deleteBookHandler}>
           <DeleteSweepIcon />
         </Button>
       )}
-      <Card sx={{ display: "flex" }} style={{ height: "100%" }}>
+      <Card sx={{ display: "flex" }} className="book_item-card">
         <CardMedia
           component="img"
           sx={{
@@ -75,7 +67,7 @@ const BookItem = ({ book }: any) => {
             <Typography
               component="div"
               variant="h6"
-              style={{ lineHeight: 1.2, marginBottom: 20 }}
+              className="book_item-card_title"
             >
               {book.book.title || ""}
             </Typography>
