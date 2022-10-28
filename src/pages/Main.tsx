@@ -47,15 +47,10 @@ const Main = () => {
       <div className="home_modal">
         <Modal open={open} setOpen={setOpen} />
       </div>
-      <Button
-        onClick={handleOpen}
-        style={{ margin: 15 }}
-        variant="contained"
-        className="create-btn"
-      >
+      <Button onClick={handleOpen} variant="contained" className="create-btn">
         Add Book
         <img
-          style={{ width: 30, marginLeft: 15 }}
+          className="create-btn_icon"
           src="https://cdn.iconscout.com/icon/premium/png-256-thumb/medical-book-2126431-1790681.png"
           alt="add_book"
         />

@@ -1,5 +1,5 @@
 import SignIn from "./pages/SignIn";
-import Navbar from "./components/NewNavbar";
+import Navbar from "./components/Navbar";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useTypedSelector } from "./hooks/useTypedSelector";
 import { useEffect } from "react";
