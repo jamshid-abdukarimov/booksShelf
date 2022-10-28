@@ -87,3 +87,15 @@ body {
   padding: 25px;
   border-radius: 8px;
 }
+
+.modal_content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.modal_btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Grid, Input, Typography, Modal } from "@mui/material";
+import { Box, Button, Input, Typography, Modal } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import generatorMd5 from "../utils/hooks/md5";
 import { useActions } from "../hooks/useActions";
@@ -12,17 +12,6 @@ type ModalProps = {
 };
 
 const ModalComponent = ({ open, setOpen }: ModalProps) => {
-  // const style = {
-  //   position: "absolute" as "absolute",
-  //   top: "50%",
-  //   left: "50%",
-  //   transform: "translate(-50%, -50%)",
-  //   width: 400,
-  //   bgcolor: "background.paper",
-  //   border: "2px solid #000",
-  //   boxShadow: 24,
-  //   p: 4,
-  // };
   const [isbn, setIsbn] = React.useState("");
   const handleClose = () => setOpen(false);
   const { addBook } = useActions();
@@ -55,13 +44,7 @@ const ModalComponent = ({ open, setOpen }: ModalProps) => {
       aria-describedby="modal-modal-description"
     >
       <Box className="modal_content">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div className="modal_content-header">
           <Typography color="primary.main" id="modal-modal-title" variant="h6">
             Create a new book
           </Typography>
@@ -92,13 +75,7 @@ const ModalComponent = ({ open, setOpen }: ModalProps) => {
           value={isbn}
           onChange={(e) => setIsbn(e.target.value)}
         />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginTop: 20,
-          }}
-        >
+        <div className="modal_btn">
           <LoadingButton
             loading={loading}
             onClick={addBookHandler}
