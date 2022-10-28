@@ -21,7 +21,7 @@ const BookItem = ({ book }: any) => {
   const deleteBookHandler = () => {
     if (user) {
       const sign = generatorMd5({
-        method: "GET",
+        method: "DELETE",
         url: `${BASE_URL}/books/${book.book.id}`,
         body: "",
         secret: user.secret,

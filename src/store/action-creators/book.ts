@@ -97,7 +97,7 @@ export const deleteBook = ({ Key, Sign, id }: deleteBookProps) => {
     try {
       dispatch({ type: BookActionTypes.SET_LOADING, payload: true });
       await axios
-        .get(`${BASE_URL}/books/${id}`, {
+        .delete(`${BASE_URL}/books/${id}`, {
           headers: {
             Key,
             Sign,
