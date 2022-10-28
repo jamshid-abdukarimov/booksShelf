@@ -6,6 +6,7 @@ import BookItem from "../components/BookItem";
 import Modal from "../components/Modal";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { IBookArray } from "../types/book";
 
 const Main: FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -57,7 +58,7 @@ const Main: FC = () => {
       <div>
         <Grid padding="0 15px" container spacing={2}>
           {books && books.length ? (
-            books?.map((book, index) => (
+            books?.map((book: IBookArray, index) => (
               <BookItem key={`${Math.random}_${index}`} book={book} />
             ))
           ) : (

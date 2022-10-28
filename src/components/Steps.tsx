@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { Box, Stepper, Step, StepLabel } from "@mui/material";
 
-import { BookActionTypes } from "../types/book";
+import { BookActionTypes, IBookArray } from "../types/book";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
 import { useActions } from "../hooks/useActions";
 
-const Steps: FC<any> = ({ item }) => {
+const Steps: FC<{ item: IBookArray }> = ({ item }) => {
   const { user } = useTypedSelector(({ auth }) => auth);
   const { books } = useTypedSelector(({ book }) => book);
   const dispatch = useDispatch();

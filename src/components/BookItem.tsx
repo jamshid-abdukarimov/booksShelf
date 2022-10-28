@@ -16,8 +16,7 @@ import { BookActionTypes, IBookArray } from "../types/book";
 import Steps from "./Steps";
 import { FC } from "react";
 
-const BookItem: FC<any> = ({ book }) => {
-  console.log(book);
+const BookItem: FC<{ book: IBookArray }> = ({ book }) => {
   const { deleteBook } = useActions();
   const { user } = useTypedSelector(({ auth }) => auth);
   const { books } = useTypedSelector(({ book }) => book);
