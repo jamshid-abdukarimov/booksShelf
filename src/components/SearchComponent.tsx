@@ -4,8 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import generatorMd5 from "../utils/md5";
-import { BASE_URL } from "../api/constants";
 
 type SearchComponentProps = {
   search: string;
@@ -57,7 +55,6 @@ const SearchComponent: FC<SearchComponentProps> = ({ search, setSearch }) => {
 
   // debounce
   const filterRef: any = React.useRef();
-
   React.useEffect(() => {
     let delayTimeOutFunction: any;
 
@@ -66,22 +63,22 @@ const SearchComponent: FC<SearchComponentProps> = ({ search, setSearch }) => {
     } else {
       delayTimeOutFunction = setTimeout(async () => {
         if (user) {
-          const searchedSign = generatorMd5({
-            method: "GET",
-            url: `${BASE_URL}/books/${search}`,
-            body: "",
-            secret: user.secret,
-          });
           if (search) {
-            getSearchedBooks({ Key: user.key, Sign: searchedSign, search });
-          } else {
-            let sign = generatorMd5({
+            getSearchedBooks({
               method: "GET",
-              url: `${BASE_URL}/books`,
+              endpoint: `/books/${search}`,
               body: "",
               secret: user.secret,
+              key: user.key,
             });
-            getAllBooks({ Key: user.key, Sign: sign });
+          } else {
+            getAllBooks({
+              method: "GET",
+              endpoint: "/books",
+              body: "",
+              secret: user.secret,
+              key: user.key,
+            });
           }
         }
       }, 700);

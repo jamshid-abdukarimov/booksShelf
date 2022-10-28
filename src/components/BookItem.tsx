@@ -1,14 +1,16 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Box, Button, Grid } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Button,
+  Grid,
+} from "@mui/material";
+import { useDispatch } from "react-redux";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import { useActions } from "../hooks/useActions";
-import generatorMd5 from "../utils/md5";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { BASE_URL } from "../api/constants";
-import { useDispatch } from "react-redux";
 import { BookActionTypes, IBookArray } from "../types/book";
 import Steps from "./Steps";
 
@@ -20,14 +22,7 @@ const BookItem = ({ book }: any) => {
 
   const deleteBookHandler = () => {
     if (user) {
-      const sign = generatorMd5({
-        method: "DELETE",
-        url: `${BASE_URL}/books/${book.book.id}`,
-        body: "",
-        secret: user.secret,
-      });
       if (book.book.id) {
-        // deleteBook({ Key: user.key, Sign: sign, id: book.book.id });
         deleteBook({
           method: "DELETE",
           endpoint: `/books/${book.book.id}`,

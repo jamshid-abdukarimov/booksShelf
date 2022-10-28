@@ -2,12 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Grid, Typography } from "@mui/material";
 
-import generatorMd5 from "../utils/md5";
 import BookItem from "../components/BookItem";
 import Modal from "../components/Modal";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { BASE_URL } from "../api/constants";
 
 const Main = () => {
   const [open, setOpen] = React.useState(false);
@@ -20,14 +18,13 @@ const Main = () => {
 
   const fetchAllBooks = () => {
     if (user) {
-      const sign = generatorMd5({
+      getAllBooks({
         method: "GET",
-        url: `${BASE_URL}/books`,
+        endpoint: "/books",
         body: "",
         secret: user.secret,
+        key: user.key,
       });
-
-      sign && getAllBooks({ Key: user.key, Sign: sign });
     }
   };
 
@@ -35,6 +32,7 @@ const Main = () => {
     if (isAuth && books && !books.length) {
       fetchAllBooks();
     }
+    // eslint-disable-next-line
   }, []);
 
   React.useEffect(() => {

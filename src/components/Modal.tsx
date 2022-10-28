@@ -1,17 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import { Box, Button, Input, Typography, Modal } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import generatorMd5 from "../utils/md5";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { BASE_URL } from "../api/constants";
 
 type ModalProps = {
   open: boolean;
   setOpen: Function;
 };
 
-const ModalComponent = ({ open, setOpen }: ModalProps) => {
+const ModalComponent: FC<ModalProps> = ({ open, setOpen }) => {
   const [isbn, setIsbn] = React.useState("");
   const handleClose = () => setOpen(false);
   const { addBook } = useActions();
@@ -20,16 +18,16 @@ const ModalComponent = ({ open, setOpen }: ModalProps) => {
   const addBookHandler = async () => {
     if (isbn && isbn.length >= 10) {
       if (user) {
-        const sign = generatorMd5({
+        addBook({
           method: "POST",
-          url: `${BASE_URL}/books`,
+          endpoint: "/books",
           body: JSON.stringify({ isbn }),
           secret: user.secret,
+          key: user.key,
         });
-
-        sign && addBook({ Key: user?.key, Sign: sign, isbn });
       }
       handleClose();
+      setIsbn("");
     } else {
       return alert("Please input isbn of book correctly");
     }

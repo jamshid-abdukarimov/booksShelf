@@ -1,53 +1,18 @@
 import { BookAction, BookActionTypes, IBook } from "../../types/book";
 import { Dispatch } from "redux";
-import axios, { AxiosInstance } from "axios";
-import { BASE_URL } from "../../api/constants";
-import generatorMd5 from "../../utils/md5";
-import { IUser } from "../../types/auth";
 import axiosInstance, { AxiosProps } from "../../api/axios";
 
-interface getAllBooksProps {
-  Key: string;
-  Sign: string;
-}
-
-interface addBookProps {
-  Key: string;
-  Sign: string;
-  isbn: string;
-}
-
-interface getSearchedBooksProps {
-  Key: string;
-  Sign: string;
-  search: string;
-}
-
-interface deleteBookProps {
-  Key: string;
-  Sign: string;
-  id: number;
-}
-
-interface changeBookStatusProps {
-  Key: string;
-  Sign: string;
-  id: number;
-  status: number;
-}
-
-export const getAllBooks = ({ Key, Sign }: getAllBooksProps) => {
+export const getAllBooks = ({
+  method,
+  endpoint,
+  body,
+  secret,
+  key,
+}: AxiosProps) => {
   return async (dispatch: Dispatch<BookAction>) => {
     try {
       dispatch({ type: BookActionTypes.SET_LOADING, payload: true });
-      await axios({
-        method: "GET",
-        url: `${BASE_URL}/books`,
-        headers: {
-          Key,
-          Sign,
-        },
-      })
+      axiosInstance({ method, endpoint, body, secret, key })
         .then(({ data }) =>
           dispatch({
             type: BookActionTypes.GET_BOOKS,
@@ -65,20 +30,22 @@ export const getAllBooks = ({ Key, Sign }: getAllBooksProps) => {
 };
 
 export const getSearchedBooks = ({
-  Key,
-  Sign,
-  search,
-}: getSearchedBooksProps) => {
+  method,
+  endpoint,
+  body,
+  secret,
+  key,
+}: AxiosProps) => {
   return async (dispatch: Dispatch<BookAction>) => {
     try {
       dispatch({ type: BookActionTypes.SET_LOADING, payload: true });
-      await axios
-        .get(`${BASE_URL}/books/${search}`, {
-          headers: {
-            Key,
-            Sign,
-          },
-        })
+      axiosInstance({
+        method,
+        endpoint,
+        body,
+        secret,
+        key,
+      })
         .then(({ data }) =>
           dispatch({
             type: BookActionTypes.GET_BOOKS,
@@ -116,28 +83,24 @@ export const deleteBook = ({
 };
 
 export const changeBookStatus = ({
-  Key,
-  Sign,
-  id,
-  status,
-}: changeBookStatusProps) => {
+  method,
+  endpoint,
+  body,
+  secret,
+  key,
+}: AxiosProps) => {
   return async (dispatch: Dispatch<BookAction>) => {
     try {
       dispatch({ type: BookActionTypes.SET_LOADING, payload: true });
-      await axios
-        .patch(
-          `${BASE_URL}/books/${id}`,
-          { status },
-          {
-            headers: {
-              Key,
-              Sign,
-            },
-          }
-        )
-        .finally(() =>
-          dispatch({ type: BookActionTypes.SET_LOADING, payload: false })
-        );
+      axiosInstance({
+        method,
+        endpoint,
+        body,
+        secret,
+        key,
+      }).finally(() =>
+        dispatch({ type: BookActionTypes.SET_LOADING, payload: false })
+      );
     } catch (e: any) {
       window.alert(e.response.data.message);
       console.clear();
@@ -145,23 +108,23 @@ export const changeBookStatus = ({
   };
 };
 
-export const addBook = ({ Key, Sign, isbn }: addBookProps) => {
+export const addBook = ({
+  method,
+  endpoint,
+  body,
+  secret,
+  key,
+}: AxiosProps) => {
   return async (dispatch: Dispatch<BookAction>) => {
     try {
       dispatch({ type: BookActionTypes.SET_LOADING, payload: true });
-      await axios
-        .post(
-          `${BASE_URL}/books`,
-          {
-            isbn,
-          },
-          {
-            headers: {
-              Key,
-              Sign,
-            },
-          }
-        )
+      axiosInstance({
+        method,
+        endpoint,
+        body,
+        secret,
+        key,
+      })
         .then(({ data }) =>
           dispatch({
             type: BookActionTypes.ADD_BOOK,
