@@ -26,6 +26,7 @@ export const addBookFunc = ({ func, books, isbn, user }: AddBookFuncProps) => {
         secret: user.secret,
         key: user.key,
       });
+      return alert("Book added successfully.");
     } else {
       return alert("No books found for this isbn.");
     }
