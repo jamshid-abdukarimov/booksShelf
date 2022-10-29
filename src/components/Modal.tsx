@@ -4,6 +4,7 @@ import { LoadingButton } from "@mui/lab";
 
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { addBookFunc } from "../utils/addBook";
 
 type ModalProps = {
   open: boolean;
@@ -21,33 +22,13 @@ const ModalComponent: FC<ModalProps> = ({ open, setOpen }) => {
   const { books } = useTypedSelector(({ book }) => book);
 
   const addBookHandler = async (isbn: string) => {
-    let canAdd = true;
-    books.forEach((book) => {
-      if (book.book.isbn === isbn) {
-        canAdd = false;
-        return alert("You have this book on your shelf");
-      }
-    });
-
-    if (canAdd) {
-      if (isbn && isbn.length >= 10) {
-        if (user) {
-          addBook({
-            method: "POST",
-            endpoint: "/books",
-            body: JSON.stringify({ isbn }),
-            secret: user.secret,
-            key: user.key,
-          });
-        }
-        handleClose();
-      } else {
-        return alert("Please input isbn of book correctly");
-      }
+    if (user) {
+      addBookFunc({ func: addBook, books, isbn, user });
+    } else {
+      return alert("Not Authorized");
     }
-
+    handleClose();
     setIsbn("");
-    canAdd = true;
   };
 
   return (

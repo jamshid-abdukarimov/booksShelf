@@ -16,10 +16,11 @@ import { BookActionTypes, IBookArray } from "../types/book";
 import Steps from "./Steps";
 import { FC } from "react";
 import { LoadingButton } from "@mui/lab";
+import { addBookFunc } from "../utils/addBook";
 
 const BookItem: FC<{ book: IBookArray }> = ({ book }) => {
   const { deleteBook, addBook } = useActions();
-  const { user, loading } = useTypedSelector(({ auth }) => auth);
+  const { user } = useTypedSelector(({ auth }) => auth);
   const { books } = useTypedSelector(({ book }) => book);
   const dispatch = useDispatch();
 
@@ -46,32 +47,11 @@ const BookItem: FC<{ book: IBookArray }> = ({ book }) => {
   };
 
   const addBookHandler = async (isbn: string) => {
-    let canAdd = true;
-    books.forEach((book) => {
-      if (book.book.isbn === isbn) {
-        canAdd = false;
-        return alert("You have this book on your shelf");
-      }
-    });
-
-    if (canAdd) {
-      if (isbn && isbn.length >= 10) {
-        if (user) {
-          await addBook({
-            method: "POST",
-            endpoint: "/books",
-            body: JSON.stringify({ isbn }),
-            secret: user.secret,
-            key: user.key,
-          });
-          alert("Book added successfully");
-        }
-      } else {
-        return alert("Please input isbn of book correctly");
-      }
+    if (user) {
+      addBookFunc({ func: addBook, books, isbn, user });
+    } else {
+      return alert("Not Authorized");
     }
-
-    canAdd = true;
   };
 
   return (

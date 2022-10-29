@@ -6,7 +6,7 @@ import BookItem from "../components/BookItem";
 import Modal from "../components/Modal";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { IBook, IBookArray } from "../types/book";
+import { IBookArray } from "../types/book";
 
 const Main: FC = () => {
   const [open, setOpen] = React.useState(false);

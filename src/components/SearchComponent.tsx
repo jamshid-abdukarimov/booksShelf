@@ -77,10 +77,11 @@ const SearchComponent: FC<SearchComponentProps> = ({ search, setSearch }) => {
               secret: user.secret,
               key: user.key,
             });
+            navigate("/");
           } else {
             dispatch({ type: BookActionTypes.SEARCH_BOOKS, payload: [] });
+            navigate("/");
           }
-          navigate("/");
         }
       }, 700);
     }
