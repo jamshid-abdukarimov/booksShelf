@@ -5,6 +5,9 @@ import InputBase from "@mui/material/InputBase";
 
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
+import { BookActionTypes } from "../types/book";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,8 +54,10 @@ type SearchComponentProps = {
 };
 
 const SearchComponent: FC<SearchComponentProps> = ({ search, setSearch }) => {
-  const { getSearchedBooks, getAllBooks } = useActions();
+  const { getSearchedBooks } = useActions();
   const { user } = useTypedSelector(({ auth }) => auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // debounce
   const filterRef: any = React.useRef();
@@ -73,14 +78,9 @@ const SearchComponent: FC<SearchComponentProps> = ({ search, setSearch }) => {
               key: user.key,
             });
           } else {
-            getAllBooks({
-              method: "GET",
-              endpoint: "/books",
-              body: "",
-              secret: user.secret,
-              key: user.key,
-            });
+            dispatch({ type: BookActionTypes.SEARCH_BOOKS, payload: [] });
           }
+          navigate("/");
         }
       }, 700);
     }

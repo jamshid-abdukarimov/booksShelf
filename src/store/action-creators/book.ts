@@ -48,7 +48,7 @@ export const getSearchedBooks = ({
       })
         .then(({ data }) =>
           dispatch({
-            type: BookActionTypes.GET_BOOKS,
+            type: BookActionTypes.SEARCH_BOOKS,
             payload: data.data.map((book: IBook) => ({ book })),
           })
         )

@@ -18,6 +18,7 @@ export enum BookActionTypes {
   GET_BOOKS = "GET_BOOKS",
   SET_LOADING = "SET_LOADING",
   ADD_BOOK = "ADD_BOOK",
+  SEARCH_BOOKS = "SEARCH_BOOKS",
 }
 interface SET_LOADING_ACTION {
   type: BookActionTypes.SET_LOADING;
@@ -39,8 +40,14 @@ interface ADD_BOOK_ACTION {
   payload: IBookArray;
 }
 
+interface SEARCH_BOOKS_ACTION {
+  type: BookActionTypes.SEARCH_BOOKS;
+  payload: IBookArray[];
+}
+
 export type BookAction =
   | SET_ISBN_ACTION
   | GET_BOOKS_ACTION
   | SET_LOADING_ACTION
-  | ADD_BOOK_ACTION;
+  | ADD_BOOK_ACTION
+  | SEARCH_BOOKS_ACTION;

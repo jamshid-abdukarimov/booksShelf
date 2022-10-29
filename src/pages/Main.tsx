@@ -6,12 +6,12 @@ import BookItem from "../components/BookItem";
 import Modal from "../components/Modal";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { IBookArray } from "../types/book";
+import { IBook, IBookArray } from "../types/book";
 
 const Main: FC = () => {
   const [open, setOpen] = React.useState(false);
   const { isAuth, user } = useTypedSelector(({ auth }) => auth);
-  const { books } = useTypedSelector(({ book }) => book);
+  const { books, searchedBooks } = useTypedSelector(({ book }) => book);
   const navigate = useNavigate();
   const { getAllBooks } = useActions();
 
@@ -47,7 +47,7 @@ const Main: FC = () => {
         <Modal open={open} setOpen={setOpen} />
       </div>
       <Button onClick={handleOpen} variant="contained" className="create-btn">
-        Add Book
+        Add a Book
         <img
           className="create-btn_icon"
           src="https://cdn.iconscout.com/icon/premium/png-256-thumb/medical-book-2126431-1790681.png"
@@ -57,7 +57,11 @@ const Main: FC = () => {
       {/* <CreateBookModal isOpen={isActive} setIsOpen={setIsActive} /> */}
       <div>
         <Grid padding="0 15px" container spacing={2}>
-          {books && books.length ? (
+          {searchedBooks.length ? (
+            searchedBooks.map((book: IBookArray, index: number) => (
+              <BookItem key={`${Math.random}_${index}`} book={book} />
+            ))
+          ) : books && books.length ? (
             books?.map((book: IBookArray, index) => (
               <BookItem key={`${Math.random}_${index}`} book={book} />
             ))

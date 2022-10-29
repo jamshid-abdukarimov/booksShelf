@@ -7,16 +7,20 @@ import { NavLink } from "react-router-dom";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import SearchComponent from "./SearchComponent";
+import { BookActionTypes } from "../types/book";
+import { useDispatch } from "react-redux";
 
 const Navbar: FC = () => {
   const { isAuth } = useTypedSelector(({ auth }) => auth);
   const { Logout } = useActions();
+  const dispatch = useDispatch();
 
   const [search, setSearch] = React.useState("");
 
   const logout = () => {
     Logout();
     setSearch("");
+    dispatch({ type: BookActionTypes.SEARCH_BOOKS, payload: [] });
   };
 
   return (

@@ -19,6 +19,10 @@
   color: white;
 }
 
+.home {
+  padding-bottom: 30px;
+}
+
 .book_item {
   min-height: max-content;
   position: relative;

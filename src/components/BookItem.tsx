@@ -15,10 +15,11 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import { BookActionTypes, IBookArray } from "../types/book";
 import Steps from "./Steps";
 import { FC } from "react";
+import { LoadingButton } from "@mui/lab";
 
 const BookItem: FC<{ book: IBookArray }> = ({ book }) => {
-  const { deleteBook } = useActions();
-  const { user } = useTypedSelector(({ auth }) => auth);
+  const { deleteBook, addBook } = useActions();
+  const { user, loading } = useTypedSelector(({ auth }) => auth);
   const { books } = useTypedSelector(({ book }) => book);
   const dispatch = useDispatch();
 
@@ -43,6 +44,36 @@ const BookItem: FC<{ book: IBookArray }> = ({ book }) => {
       }
     }
   };
+
+  const addBookHandler = async (isbn: string) => {
+    let canAdd = true;
+    books.forEach((book) => {
+      if (book.book.isbn === isbn) {
+        canAdd = false;
+        return alert("You have this book on your shelf");
+      }
+    });
+
+    if (canAdd) {
+      if (isbn && isbn.length >= 10) {
+        if (user) {
+          await addBook({
+            method: "POST",
+            endpoint: "/books",
+            body: JSON.stringify({ isbn }),
+            secret: user.secret,
+            key: user.key,
+          });
+          alert("Book added successfully");
+        }
+      } else {
+        return alert("Please input isbn of book correctly");
+      }
+    }
+
+    canAdd = true;
+  };
+
   return (
     <Grid className="book_item " item sm={12} md={6}>
       {book.book.id && (
@@ -105,6 +136,23 @@ const BookItem: FC<{ book: IBookArray }> = ({ book }) => {
             </Typography>
           </CardContent>
           {book.book.id && <Steps item={book} />}
+          {!book.book.id && (
+            <div>
+              <LoadingButton
+                // loading={loading}
+                variant="contained"
+                className="create-btn"
+                onClick={() => addBookHandler(book.book.isbn)}
+              >
+                Add to my shelf
+                <img
+                  className="create-btn_icon"
+                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/medical-book-2126431-1790681.png"
+                  alt="add_book"
+                />
+              </LoadingButton>
+            </div>
+          )}
         </Box>
       </Card>
     </Grid>

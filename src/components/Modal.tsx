@@ -12,26 +12,42 @@ type ModalProps = {
 
 const ModalComponent: FC<ModalProps> = ({ open, setOpen }) => {
   const [isbn, setIsbn] = React.useState("");
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setIsbn("");
+  };
   const { addBook } = useActions();
   const { user, loading } = useTypedSelector(({ auth }) => auth);
+  const { books } = useTypedSelector(({ book }) => book);
 
-  const addBookHandler = async () => {
-    if (isbn && isbn.length >= 10) {
-      if (user) {
-        addBook({
-          method: "POST",
-          endpoint: "/books",
-          body: JSON.stringify({ isbn }),
-          secret: user.secret,
-          key: user.key,
-        });
+  const addBookHandler = async (isbn: string) => {
+    let canAdd = true;
+    books.forEach((book) => {
+      if (book.book.isbn === isbn) {
+        canAdd = false;
+        return alert("You have this book on your shelf");
       }
-      handleClose();
-      setIsbn("");
-    } else {
-      return alert("Please input isbn of book correctly");
+    });
+
+    if (canAdd) {
+      if (isbn && isbn.length >= 10) {
+        if (user) {
+          addBook({
+            method: "POST",
+            endpoint: "/books",
+            body: JSON.stringify({ isbn }),
+            secret: user.secret,
+            key: user.key,
+          });
+        }
+        handleClose();
+      } else {
+        return alert("Please input isbn of book correctly");
+      }
     }
+
+    setIsbn("");
+    canAdd = true;
   };
 
   return (
@@ -77,7 +93,7 @@ const ModalComponent: FC<ModalProps> = ({ open, setOpen }) => {
         <div className="modal_btn">
           <LoadingButton
             loading={loading}
-            onClick={addBookHandler}
+            onClick={() => addBookHandler(isbn)}
             variant="contained"
           >
             Create
