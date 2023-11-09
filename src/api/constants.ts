@@ -1,1 +1,1 @@
-export const BASE_URL = "https://23v112.lavina.tech";
+export const BASE_URL = "https://0001.uz";

@@ -6,9 +6,16 @@ interface AddBookFuncProps {
   books: IBookArray[];
   isbn: string;
   user: IUser;
+  handleClose?: () => void;
 }
 
-export const addBookFunc = ({ func, books, isbn, user }: AddBookFuncProps) => {
+export const addBookFunc = ({
+  func,
+  books,
+  isbn,
+  user,
+  handleClose,
+}: AddBookFuncProps) => {
   let canAdd = true;
   books.forEach((book: IBookArray) => {
     if (book.book.isbn === isbn) {
@@ -25,8 +32,9 @@ export const addBookFunc = ({ func, books, isbn, user }: AddBookFuncProps) => {
         body: JSON.stringify({ isbn }),
         secret: user.secret,
         key: user.key,
+        handleClose,
       });
-      return alert("Book added successfully.");
+      return;
     } else {
       return alert("No books found for this isbn.");
     }

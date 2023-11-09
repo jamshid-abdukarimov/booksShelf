@@ -9,6 +9,7 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import SearchComponent from "./SearchComponent";
 import { BookActionTypes } from "../types/book";
 import { useDispatch } from "react-redux";
+import Loader from "./Loader";
 
 const Navbar: FC = () => {
   const { isAuth } = useTypedSelector(({ auth }) => auth);
@@ -16,12 +17,18 @@ const Navbar: FC = () => {
   const dispatch = useDispatch();
 
   const [search, setSearch] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const logout = () => {
     Logout();
     setSearch("");
     dispatch({ type: BookActionTypes.SEARCH_BOOKS, payload: [] });
+    localStorage.setItem("userData", "");
   };
+
+  if (loading) {
+    return <Loader main />;
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -29,10 +36,16 @@ const Navbar: FC = () => {
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
             <NavLink className="logo" to="/">
-              Lavina Tech
+              Book Shelf
             </NavLink>
           </Typography>
-          {isAuth && <SearchComponent search={search} setSearch={setSearch} />}
+          {isAuth && (
+            <SearchComponent
+              search={search}
+              setSearch={setSearch}
+              setLoading={setLoading}
+            />
+          )}
           <Box sx={{ flexGrow: 1 }} />
           {isAuth ? (
             <Box
@@ -45,7 +58,7 @@ const Navbar: FC = () => {
                 </NavLink>
               </IconButton>
               <IconButton size="large">
-                <NavLink to="/profile">
+                <NavLink to="/signin">
                   <LogoutIcon onClick={logout} />
                 </NavLink>
               </IconButton>

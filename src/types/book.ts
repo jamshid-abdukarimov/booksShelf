@@ -16,7 +16,7 @@ export interface IBookArray {
 export enum BookActionTypes {
   SET_ISBN = "SET_ISBN",
   GET_BOOKS = "GET_BOOKS",
-  SET_LOADING = "SET_LOADING",
+  SET_LOADING = "SET_BOOKS_LOADING",
   ADD_BOOK = "ADD_BOOK",
   SEARCH_BOOKS = "SEARCH_BOOKS",
 }

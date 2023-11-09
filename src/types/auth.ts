@@ -7,7 +7,7 @@ export interface IUser {
 
 export enum UserActionTypes {
   FETCH_USER = "FETCH_USER",
-  SET_LOADING = "SET_LOADING",
+  SET_LOADING = "SET_AUTH_LOADING",
   RESET = "RESET",
 }
 

@@ -35,10 +35,13 @@ export const getSearchedBooks = ({
   body,
   secret,
   key,
-}: AxiosProps) => {
+  setLoading,
+}: AxiosProps & {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return async (dispatch: Dispatch<BookAction>) => {
     try {
-      dispatch({ type: BookActionTypes.SET_LOADING, payload: true });
+      setLoading(true);
       axiosInstance({
         method,
         endpoint,
@@ -52,9 +55,7 @@ export const getSearchedBooks = ({
             payload: data.data.map((book: IBook) => ({ book })),
           })
         )
-        .finally(() =>
-          dispatch({ type: BookActionTypes.SET_LOADING, payload: false })
-        );
+        .finally(() => setLoading(false));
     } catch (e: any) {
       window.alert(e.response.data.message);
       console.clear();
@@ -114,7 +115,8 @@ export const addBook = ({
   body,
   secret,
   key,
-}: AxiosProps) => {
+  handleClose,
+}: AxiosProps & { handleClose?: () => void }) => {
   return async (dispatch: Dispatch<BookAction>) => {
     try {
       dispatch({ type: BookActionTypes.SET_LOADING, payload: true });
@@ -125,12 +127,16 @@ export const addBook = ({
         secret,
         key,
       })
-        .then(({ data }) =>
+        .then(({ data }) => {
           dispatch({
             type: BookActionTypes.ADD_BOOK,
             payload: { status: 0, book: data.data },
-          })
-        )
+          });
+          alert("Book added successfully.");
+          if (handleClose) {
+            handleClose();
+          }
+        })
         .finally(() =>
           dispatch({ type: BookActionTypes.SET_LOADING, payload: false })
         );

@@ -23,12 +23,12 @@ const ModalComponent: FC<ModalProps> = ({ open, setOpen }) => {
 
   const addBookHandler = async (isbn: string) => {
     if (user) {
-      addBookFunc({ func: addBook, books, isbn, user });
+      addBookFunc({ func: addBook, books, isbn, user, handleClose });
     } else {
       return alert("Not Authorized");
     }
-    handleClose();
-    setIsbn("");
+    // handleClose();
+    // setIsbn("");
   };
 
   return (

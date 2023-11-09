@@ -37,7 +37,7 @@ const Main: FC = () => {
   }, []);
 
   React.useEffect(() => {
-    !isAuth && navigate("/signup");
+    !isAuth && navigate("/signin");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
@@ -54,7 +54,6 @@ const Main: FC = () => {
           alt="add_book"
         />
       </Button>
-      {/* <CreateBookModal isOpen={isActive} setIsOpen={setIsActive} /> */}
       <div>
         <Grid padding="0 15px" container spacing={2}>
           {searchedBooks.length ? (

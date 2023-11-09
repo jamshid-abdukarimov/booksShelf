@@ -50,10 +50,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 type SearchComponentProps = {
   search: string;
-  setSearch: Function;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SearchComponent: FC<SearchComponentProps> = ({ search, setSearch }) => {
+const SearchComponent: FC<SearchComponentProps> = ({
+  search,
+  setSearch,
+  setLoading,
+}) => {
   const { getSearchedBooks } = useActions();
   const { user } = useTypedSelector(({ auth }) => auth);
   const dispatch = useDispatch();
@@ -76,6 +81,7 @@ const SearchComponent: FC<SearchComponentProps> = ({ search, setSearch }) => {
               body: "",
               secret: user.secret,
               key: user.key,
+              setLoading: setLoading,
             });
             navigate("/");
           } else {

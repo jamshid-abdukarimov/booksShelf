@@ -3,6 +3,8 @@ import { Dispatch } from "redux";
 import axios from "axios";
 import { BASE_URL } from "../../api/constants";
 import { BookAction, BookActionTypes } from "../../types/book";
+import generatorMd5 from "../../utils/md5";
+import { NavigateFunction } from "react-router-dom";
 
 export const SignUp = (data: IUser) => {
   return async (dispatch: Dispatch<UserAction>) => {
@@ -26,17 +28,35 @@ export const SignUp = (data: IUser) => {
   };
 };
 
-export const SignIn = (data: any) => {
+export const SignIn = (data: { secret: string; key: string }) => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {
+      const sign = generatorMd5({
+        method: "GET",
+        url: "/myself",
+        body: "",
+        secret: `${data.secret}`,
+      });
       dispatch({ type: UserActionTypes.SET_LOADING, payload: true });
       await axios
-        .get(`${BASE_URL}/myself`, { headers: data })
-        .then(({ data }) => {
+        .get(`${BASE_URL}/myself`, {
+          headers: {
+            key: data.key,
+            sign: sign,
+          },
+        })
+        .then(({ data: res }) => {
           dispatch({
             type: UserActionTypes.FETCH_USER,
-            payload: data.data,
+            payload: res.data,
           });
+          localStorage.setItem(
+            "userData",
+            JSON.stringify({
+              key: data.key,
+              secret: data.secret,
+            })
+          );
         })
         .finally(() =>
           dispatch({ type: UserActionTypes.SET_LOADING, payload: false })

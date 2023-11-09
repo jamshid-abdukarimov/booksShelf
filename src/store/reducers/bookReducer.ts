@@ -1,9 +1,4 @@
-import {
-  BookActionTypes,
-  IBookArray,
-  BookAction,
-  IBook,
-} from "../../types/book";
+import { BookActionTypes, IBookArray, BookAction } from "../../types/book";
 
 interface BookState {
   isbn: string;

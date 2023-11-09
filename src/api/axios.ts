@@ -19,7 +19,7 @@ export default async function axiosInstance({
 }: AxiosProps) {
   const sign = generatorMd5({
     method,
-    url: `${BASE_URL}${endpoint}`,
+    url: `${endpoint}`,
     body,
     secret,
   });

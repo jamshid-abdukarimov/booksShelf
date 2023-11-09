@@ -7,41 +7,24 @@ import LockOutlinedIcon from "@mui/icons-material/LockRounded";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { FormEvent, useEffect } from "react";
+import { FormEvent } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import generatorMd5 from "../utils/md5";
 import { useActions } from "../hooks/useActions";
-import { useNavigate } from "react-router-dom";
 const theme = createTheme();
 
 export default function SignIn(): JSX.Element {
-  const { loading, isAuth } = useTypedSelector(({ auth }) => auth);
+  const { loading } = useTypedSelector(({ auth }) => auth);
   const { SignIn } = useActions();
-  const navigate = useNavigate();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const key = formData.get("key");
-    const secret = formData.get("secret");
-    const sign = generatorMd5({
-      method: "GET",
-      url: "https://23v112.lavina.tech/myself",
-      body: "",
-      secret: `${secret}`,
-    });
-
-    const data = {
-      Key: `${key}`,
-      Sign: `${sign}`,
+    const data = Object.fromEntries(formData.entries()) as {
+      key: string;
+      secret: string;
     };
     SignIn(data);
   };
-
-  useEffect(() => {
-    if (isAuth) return navigate("/");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuth]);
 
   return (
     <ThemeProvider theme={theme}>
